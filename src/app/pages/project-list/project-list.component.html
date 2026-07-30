@@ -1,0 +1,19 @@
+<section class="page-header">
+  <h1>Projects</h1>
+  <p>A closer look at the systems I've designed and built as a Full Stack Developer.</p>
+</section>
+
+<section class="project-grid">
+  @for (project of projects; track project.slug) {
+    <a class="project-card" [routerLink]="['/projects', project.slug]">
+      <h2>{{ project.title }}</h2>
+      <p>{{ project.tagline }}</p>
+      <div class="project-card__tags">
+        @for (tech of project.techStack; track tech) {
+          <span class="tag">{{ tech }}</span>
+        }
+      </div>
+      <span class="project-card__link">View case study &rarr;</span>
+    </a>
+  }
+</section>
