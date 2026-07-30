@@ -93,12 +93,6 @@
       }
     }
 
-    &--open {
-      @media (max-width: v.$breakpoint-sm) {
-        display: flex;
-      }
-    }
-
     @media (max-width: v.$breakpoint-sm) {
       display: none;
       position: absolute;
@@ -111,6 +105,10 @@
       border-bottom: 1px solid var(--color-border);
       padding: var(--space-sm) var(--space-md);
       gap: var(--space-sm);
+
+      &.nav__links--open {
+        display: flex;
+      }
     }
   }
 
