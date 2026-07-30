@@ -3,8 +3,9 @@ import { EducationItem, Achievement } from './models';
 export const EDUCATION: EducationItem[] = [
   {
     degree: 'B.E., Computer Science and Engineering',
-    institution: 'Institute of Road and Transport Technology, Anna University',
+    institution: 'Government College of Engineering, Erode (Anna University)',
     period: '2019 – 2023',
+    detail: 'CGPA: 8.0',
   },
   {
     degree: 'HSC',
