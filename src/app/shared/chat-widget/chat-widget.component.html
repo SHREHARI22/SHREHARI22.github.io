@@ -15,9 +15,11 @@
 
       <div class="chat-widget__messages">
         @for (message of messages(); track $index) {
-          <div class="chat-widget__message" [class.chat-widget__message--user]="message.role === 'user'">
-            {{ message.text }}
-          </div>
+          <div
+            class="chat-widget__message"
+            [class.chat-widget__message--user]="message.role === 'user'"
+            [innerHTML]="renderMessage(message.text)"
+          ></div>
         }
         @if (isLoading()) {
           <div class="chat-widget__message chat-widget__message--loading">Thinking&hellip;</div>

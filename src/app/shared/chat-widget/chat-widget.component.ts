@@ -10,6 +10,7 @@ import {
   AfterViewChecked,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ChatService } from '../../core/chat.service';
 
 interface ChatMessage {
@@ -18,6 +19,21 @@ interface ChatMessage {
 }
 
 const HINT_DELAY_MS = 2000;
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function renderInlineMarkdown(text: string): string {
+  let html = escapeHtml(text);
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+  html = html.replace(/\n/g, '<br>');
+  return html;
+}
 
 @Component({
   selector: 'app-chat-widget',
@@ -30,7 +46,15 @@ const HINT_DELAY_MS = 2000;
 export class ChatWidgetComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('scrollAnchor') private scrollAnchor?: ElementRef<HTMLDivElement>;
 
-  constructor(private chatService: ChatService, private elementRef: ElementRef<HTMLElement>) {}
+  constructor(
+    private chatService: ChatService,
+    private elementRef: ElementRef<HTMLElement>,
+    private sanitizer: DomSanitizer
+  ) {}
+
+  renderMessage(text: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(renderInlineMarkdown(text));
+  }
 
   isOpen = signal(false);
   isLoading = signal(false);
