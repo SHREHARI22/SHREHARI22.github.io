@@ -1,0 +1,40 @@
+@if (project(); as p) {
+  <section class="detail">
+    <a class="detail__back" routerLink="/projects">&larr; All Projects</a>
+    <h1>{{ p.title }}</h1>
+    <p class="detail__tagline">{{ p.tagline }}</p>
+
+    <div class="detail__tags">
+      @for (tech of p.techStack; track tech) {
+        <span class="tag">{{ tech }}</span>
+      }
+    </div>
+
+    <div class="detail__body">
+      <div class="detail__main">
+        <h2>Overview</h2>
+        <p>{{ p.summary }}</p>
+        <p>{{ p.role }}</p>
+
+        <h2>What I Built</h2>
+        <ul class="detail__highlights">
+          @for (highlight of p.highlights; track highlight) {
+            <li>{{ highlight }}</li>
+          }
+        </ul>
+
+        <h2>Tech Stack</h2>
+        <div class="detail__tags detail__tags--footer">
+          @for (tech of p.techStack; track tech) {
+            <span class="tag">{{ tech }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="detail detail--not-found">
+    <h1>Project not found</h1>
+    <a routerLink="/projects">&larr; Back to all projects</a>
+  </section>
+}

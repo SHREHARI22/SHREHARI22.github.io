@@ -1,0 +1,38 @@
+<section class="page-header">
+  <h1>Contact</h1>
+  <p>Open to Full Stack Developer roles &mdash; feel free to reach out.</p>
+</section>
+
+<section class="contact-info">
+  <a class="contact-card" href="mailto:shrehari.2002@gmail.com">
+    <span class="contact-card__label">Email</span>
+    <span class="contact-card__value">shrehari.2002&#64;gmail.com</span>
+  </a>
+  <a class="contact-card" href="tel:+919894204964">
+    <span class="contact-card__label">Phone</span>
+    <span class="contact-card__value">+91 9894204964</span>
+  </a>
+  <a class="contact-card" href="https://www.linkedin.com/in/shrehari-guruprasad-balasubramani-6b350a1b4/" target="_blank" rel="noopener">
+    <span class="contact-card__label">LinkedIn</span>
+    <span class="contact-card__value">/in/shrehari-guruprasad-balasubramani-6b350a1b4</span>
+  </a>
+  <a class="contact-card" href="resume/Shrehari_Guruprasad_Balasubramani_Resume.pdf" download>
+    <span class="contact-card__label">Resume</span>
+    <span class="contact-card__value">Download PDF</span>
+  </a>
+</section>
+
+<section class="education">
+  <h2>Education</h2>
+  @for (item of education; track item.degree) {
+    <div class="education-item">
+      <div class="education-item__row">
+        <span class="education-item__degree">{{ item.degree }}</span>
+        <span class="education-item__period">{{ item.period }}</span>
+      </div>
+      <p class="education-item__institution">
+        {{ item.institution }}@if (item.detail) { &mdash; {{ item.detail }} }
+      </p>
+    </div>
+  }
+</section>

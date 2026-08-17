@@ -1,0 +1,52 @@
+@use 'styles/variables';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 var(--space-sm) 0;
+  color: var(--color-text-muted);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--color-accent-alt);
+  color: white;
+}

@@ -1,0 +1,89 @@
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__text">
+      <p class="hero__eyebrow">Full Stack Developer</p>
+      <h1>Shrehari Guruprasad Balasubramani</h1>
+      <p class="hero__summary">
+        I build scalable full-stack applications with Angular and FastAPI, and design multi-agent AI systems
+        on the Claude Agent SDK &mdash; currently shipping an enterprise healthcare analytics platform used
+        across a multi-hospital network.
+      </p>
+      <div class="hero__actions">
+        <a class="btn-primary" routerLink="/projects">View Projects</a>
+        <a class="btn-secondary" href="resume/Shrehari_Guruprasad_Balasubramani_Resume.pdf" download>Download Resume</a>
+      </div>
+    </div>
+    <div class="hero__photo">
+      <img src="images/profile.png" alt="Shrehari Guruprasad Balasubramani" />
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <h2>About</h2>
+  <p>
+    I'm a Full Stack Developer with 3+ years of experience at
+    <strong>{{ experience.company }}</strong> ({{ experience.location }}), where I own features end-to-end
+    &mdash; from Angular components through FastAPI services to the data pipelines and Kubernetes deployments
+    underneath them. My work spans a custom-built RBAC engine, a healthcare BI dashboard platform, a
+    multi-engine semantic layer, and a multi-agent conversational analytics system built on the Claude Agent SDK.
+  </p>
+  <div class="about__roles">
+    @for (role of experience.roles; track role.title) {
+      <div class="about__role">
+        <span class="about__role-title">{{ role.title }}</span>
+        <span class="about__role-period">{{ role.period }}</span>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="achievements">
+  <h2>Achievements</h2>
+  @for (achievement of achievements; track achievement.title) {
+    <div class="achievement-card">
+      <h3>{{ achievement.title }}</h3>
+      <p class="achievement-card__org">{{ achievement.organization }}</p>
+      <p>{{ achievement.description }}</p>
+      @if (achievement.link) {
+        <a class="achievement-card__link" [href]="achievement.link" target="_blank" rel="noopener">View on LinkedIn &rarr;</a>
+      }
+    </div>
+  }
+</section>
+
+<section class="skills">
+  <h2>Skills</h2>
+  <div class="skills__grid">
+    @for (group of skills; track group.category) {
+      <div class="skills__group">
+        <h3>{{ group.category }}</h3>
+        <div class="skills__tags">
+          @for (item of group.items; track item) {
+            <span class="tag">{{ item }}</span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="featured-projects">
+  <div class="featured-projects__header">
+    <h2>Featured Projects</h2>
+    <a routerLink="/projects">See all projects &rarr;</a>
+  </div>
+  <div class="featured-projects__grid">
+    @for (project of projects; track project.slug) {
+      <a class="project-card" [routerLink]="['/projects', project.slug]">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.tagline }}</p>
+        <div class="project-card__tags">
+          @for (tech of project.techStack.slice(0, 4); track tech) {
+            <span class="tag">{{ tech }}</span>
+          }
+        </div>
+      </a>
+    }
+  </div>
+</section>
