@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
-const CHAT_WORKER_URL = ' http://127.0.0.1:8787';
+const CHAT_WORKER_URL = ' https://sb-portfolio-backend.workers.dev'
 
 export interface ChatResponse {
   answer?: string;
