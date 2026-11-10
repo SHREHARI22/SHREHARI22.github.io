@@ -137,6 +137,72 @@ export const PROJECTS: Project[] = [
       'Added a background sweeper task that clears orphaned or stale "loading" messages left behind by interrupted conversations, keeping the chat history clean.',
     ],
   },
+  {
+    slug: 'sb-motobill',
+    title: 'SB MotoBill — Multi-Branch Showroom Billing System',
+    tagline: 'An independently built, client-deployed Windows desktop billing app for two-wheeler showrooms',
+    summary:
+      'Outside my day job, I design, build, and maintain a GST-compliant billing desktop application for ' +
+      'two-wheeler showroom clients, end to end — from the original feature set through ongoing client support ' +
+      'and new feature delivery. The app handles GST and Non-GST invoicing, quotations, delivery notes, and ' +
+      'full backup/restore with Google Drive sync, all running as a single-file Windows installer so a ' +
+      'non-technical shop owner can install and run it with no separate database server or IT support. When a ' +
+      'client expanded to a second location, I designed and implemented multi-branch support from scratch: a ' +
+      "single continuous, audit-compliant invoice sequence across branches (verified against India's GST Rule " +
+      "46 invoice-numbering requirements) with each branch's own address printing correctly per document, " +
+      "backed by a from-scratch data migration that safely upgrades a client's live production database with " +
+      'zero data loss.',
+    role:
+      'Sole developer — product design, full-stack implementation (Python/Flet desktop UI, SQLAlchemy/SQLite, ' +
+      'ReportLab PDF generation), packaging/distribution, and direct client support.',
+    techStack: [
+      'Python',
+      'Flet (Flutter-based desktop UI)',
+      'SQLAlchemy / SQLite',
+      'ReportLab (PDF generation)',
+      'Google Drive API (OAuth)',
+      'PyInstaller + Inno Setup (Windows packaging)',
+    ],
+    highlights: [
+      'Designed and shipped multi-branch billing support for an active production client: a shared, continuous invoice/quotation numbering sequence across branches (matching CGST Rule 46 requirements) with per-branch address printing on generated PDFs, backed by a zero-downtime schema migration that safely backfills existing historical invoices.',
+      'Built a from-scratch Google Drive backup integration (OAuth sign-in, automatic background upload, organized backup folder) and diagnosed and fixed a real production incident where a client machine\'s broken IPv6 routing silently broke every Drive upload — fixed by patching DNS resolution to prefer IPv4, verified against the client\'s actual network trace.',
+      'Found and fixed a live data-corruption-adjacent bug: overlapping restore-database operations (triggered by a user double-clicking "Restore" while a prior restore was still running) raced on the same WAL journal files and crashed — fixed with a process-wide lock plus UI-level double-submit guards, with regression tests reproducing the exact failure.',
+      'Performed a hands-on forensic data recovery for a client who had overwritten their live production database with a stale backup: cross-referenced printed PDF invoices, app logs, and multiple backup snapshots to manually reconstruct 13 lost invoices with correct tax computations, restored entirely through the application\'s own service layer (not raw SQL) to preserve data integrity.',
+      'Redesigned PDF invoice/delivery-note templates to cut printer color-ink usage (replacing solid color-fill headers with thin-rule accents, removing unnecessary zebra-striping) in direct response to client feedback about printing costs.',
+    ],
+  },
+  {
+    slug: 'sb-rx',
+    title: 'SB Rx — Clinic Prescription & Patient Management System',
+    tagline: 'An independently built Windows desktop application for digital prescription writing and patient records',
+    summary:
+      'A companion product to SB MotoBill, built the same way — independently designed, developed, and ' +
+      'supported outside my day job for a clinic client. SB Rx lets a doctor manage patients, write structured ' +
+      'prescriptions (dosage, frequency, duration, clinical notes, vitals), and generate print-ready PDF ' +
+      'prescriptions, with the same backup/restore and Google Drive sync foundation shared with SB MotoBill. ' +
+      'Recent work includes porting over data-safety fixes discovered in SB MotoBill\'s production use, and ' +
+      'redesigning the prescription PDF layout for A5 paper — a client-requested change to reduce printing ' +
+      'costs, re-engineered rather than simply scaled down so every element (clinic header with logo, vitals ' +
+      'strip, medication table, signature block) is proportioned correctly for the smaller page instead of ' +
+      'looking like a shrunken A4 document.',
+    role:
+      'Sole developer — product design, full-stack implementation (Python/Flet desktop UI, SQLAlchemy/SQLite, ' +
+      'ReportLab PDF generation), packaging/distribution, and direct client support.',
+    techStack: [
+      'Python',
+      'Flet (Flutter-based desktop UI)',
+      'SQLAlchemy / SQLite',
+      'ReportLab (PDF generation)',
+      'Google Drive API (OAuth)',
+      'PyInstaller + Inno Setup (Windows packaging)',
+    ],
+    highlights: [
+      'Redesigned the prescription PDF for A5 paper from first principles (not a scaled-down A4 layout) — rebalanced every section\'s typography, spacing, and column proportions, including a custom hand-drawn vital-sign icon set (BP, pulse, SpO2, temperature, weight) rendered via raw canvas primitives since the base font has no glyphs for them.',
+      'Diagnosed and fixed subtle layout bugs during the A5 redesign using exact PDF coordinate extraction (not just visual inspection) — catching a sub-point footer overflow past the page border and a nested-table padding bug that was silently misaligning icons within their cells.',
+      'Ported the same backup/restore concurrency and IPv4-DNS-preference fixes discovered in SB MotoBill\'s production incidents, proactively hardening a second live application against the same failure modes before they were independently reported.',
+      'Built a configurable clinical-notes and vitals system so a clinic can define its own structured prescription fields without code changes, alongside dosage-frequency encoding (e.g. "1-0-0-1") shared with a reusable dose-formatting utility.',
+    ],
+  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {
