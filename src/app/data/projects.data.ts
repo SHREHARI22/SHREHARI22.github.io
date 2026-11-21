@@ -138,6 +138,42 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    slug: 'agent-factory',
+    title: 'Agent Factory — No-Code AI Agent Platform',
+    tagline: 'A platform for building, testing, and running AI agents for healthcare workflows without writing code',
+    summary:
+      'Teams across the hospital network needed a way to automate workflows — EMR integrations, clinical alerts, ' +
+      'patient messaging, finance reconciliations — without waiting on engineering for every new agent. I worked ' +
+      'as part of the team building Agent Factory, a platform that takes an agent from a conversation with an ' +
+      'AI co-pilot all the way to a scheduled production job: the co-pilot interviews the user through a fixed ' +
+      'set of steps to pin down triggers, inputs, logic, and outputs; a sandboxed Playground lets them test the ' +
+      'agent against real or sample data inside isolated, throwaway pods; a script generator then turns the proven ' +
+      'agent into a deterministic Python package; and a scheduler runs it on a cron, an API call, or an external ' +
+      'event, with cost tracking and failure alerts built in. A recurring design constraint shaped every layer: ' +
+      'real patient and source data should never reach the LLM — only schemas, masked values, or synthetic ' +
+      'samples do, with all generated code executing in isolated sandbox pods rather than the backend process.',
+    role:
+      'Contributed across the platform\'s modules — the co-pilot and Playground sandbox, the script generator and ' +
+      'drift guard, the scheduler and connector framework, and the multi-provider LLM gateway.',
+    techStack: [
+      'React',
+      'React Flow',
+      'FastAPI',
+      'Claude Agent SDK',
+      'PostgreSQL',
+      'Kubernetes',
+      'Langfuse',
+    ],
+    highlights: [
+      'Built parts of the 7-step co-pilot (trigger, inputs, logic, guardrails, output, failure modes, manhours saved) that interviews a user through the Claude Agent SDK and live-streams definition and architecture-diagram updates over SSE as it goes.',
+      'Worked on the sandboxed Playground: an agentic loop running in Kata-isolated Kubernetes pods with a persistent Python kernel per session, a warm pool for fast pod claims, and an AST-based replay-safety check that rebuilds a session\'s state on a new pod after an eviction without re-running side-effecting code.',
+      'Contributed to the script generator, which runs a readiness check (a verdict plus hard checks and an actionable fix-it list) before writing a deterministic `agent_script.py` package, and to the drift guard that detects when a deployed script no longer matches its agent definition.',
+      'Worked on resolvers and the LLM-written connector builder: reusable source connectors tested against live sample data before use, and read-only lookup connectors for outside systems that run through static checks and an isolated-pod live test, with real sample values masked before the LLM ever sees them.',
+      'Built against a multi-provider LLM gateway (Anthropic, OpenAI, Gemini, Databricks) with per-call cost and usage tracking, and model tiers (light / standard / complex) so generated scripts call a tier instead of a hard-coded model.',
+      'Worked on the production scheduler (cron, API, and event triggers with distributed locking across pods) and its failure-alert email pipeline, plus Langfuse-based tracing for observability across interactive, scheduled, and API runs.',
+    ],
+  },
+  {
     slug: 'sb-motobill',
     title: 'SB MotoBill — Multi-Branch Showroom Billing System',
     tagline: 'An independently built, client-deployed Windows desktop billing app for two-wheeler showrooms',
